@@ -12,7 +12,11 @@ async def send_pose_data(websocket, path):
         await websocket.send(json.dumps(pose_data))
         await asyncio.sleep(0.1)
 
-start_server = websockets.serve(send_pose_data, "0.0.0.0", 10000)  # Use port 10000
-
-asyncio.get_event_loop().run_until_complete(start_server)
-asyncio.get_event_loop().run_forever()
+async def main():
+    # Start WebSocket server
+    start_server = await websockets.serve(send_pose_data, "0.0.0.0", 10000)
+    print("Server started on ws://0.0.0.0:10000")
+    await start_server.wait_closed()  # Wait for server to close
+    
+    
+asyncio.run(main())

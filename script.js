@@ -24,7 +24,7 @@ const hand = new THREE.Mesh(new THREE.SphereGeometry(0.1, 32, 32), material);
 scene.add(shoulder, elbow, hand);
 
 // WebSocket connection to receive pose data
-const socket = new WebSocket("ws://localhost:8765");
+const socket = new WebSocket("https://arm-controller.onrender.com");
 socket.onmessage = (event) => {
   const data = JSON.parse(event.data);
   shoulder.position.set(data.shoulder.x, data.shoulder.y, data.shoulder.z);
